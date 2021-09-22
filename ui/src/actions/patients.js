@@ -1,9 +1,7 @@
 import * as api from '../api/index';
 
 export const createPatient = (patient) => async (dispatch) => {
-  console.log('disp create ')
   const { data } = await api.createPatient(patient);
-  console.log('createpaitnet ', data)
   dispatch({ type: 'POST', payload: data });
 };
 

@@ -1,13 +1,12 @@
-const patients = (patients = [], action) => {
-    switch (action.type) {
-        case 'POST':
-            return [...patients, action.payload];
-        case 'GET':
-            console.log('hit get reducer ', action)
-            return action.payload;
-        default:
-            return patients;
-    }
-}
+const patients = (patientList = [], action) => {
+  switch (action.type) {
+    case 'POST':
+      return [...patientList, action.payload];
+    case 'GET':
+      return action.payload;
+    default:
+      return patientList;
+  }
+};
 
 export default patients;

@@ -1,82 +1,76 @@
-import React, { useState, useEffect, useMemo } from "react";
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
 
-import "../App.css";
-import { Controller, useForm } from "react-hook-form";
-import { useSelector } from 'react-redux';
-import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css";
-import { getPatients } from '../actions/patients';
-import { useTable, useFilters, useGlobalFilter } from "react-table";
-
+import '../App.scss';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useTable } from 'react-table';
+import PropTypes from 'prop-types';
 
 function Patients({ columns, data }) {
-  // const dispatch = useDispatch();    
-  //  const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   dispatch(getPatients())
-  //   // console.log(getPatients(), 'getpatients')
-  //   // setData();
-  // }, [dispatch]);
-  console.log('data ', data)
- 
-  const tableInstance = useTable({ columns, data })
- 
+  const tableInstance = useTable({ columns, data });
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
-  } = tableInstance
-  
-
-  
-  // console.log(data)
+  } = tableInstance;
 
   return (
     <table {...getTableProps()}>
-    <thead>
-      {// Loop over the header rows
-      headerGroups.map(headerGroup => (
-        // Apply the header row props
-        <tr {...headerGroup.getHeaderGroupProps()}>
-          {// Loop over the headers in each row
-          headerGroup.headers.map(column => (
-            // Apply the header cell props
-            <th {...column.getHeaderProps()}>
-              {// Render the header
-              column.render('Header')}
-            </th>
-          ))}
-        </tr>
-      ))}
-    </thead>
-    {/* Apply the table body props */}
-    <tbody {...getTableBodyProps()}>
-      {// Loop over the table rows
-      rows.map(row => {
-        // Prepare the row for display
-        prepareRow(row)
+      <thead>
+        {
+        headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {
+            headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>
+                {
+              column.render('Header')
+              }
+              </th>
+            ))
+            }
+          </tr>
+        ))
+        }
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {
+      rows.map((row) => {
+        prepareRow(row);
         return (
-          // Apply the row props
           <tr {...row.getRowProps()}>
-            {// Loop over the rows cells
-            row.cells.map(cell => {
-              // Apply the cell props
+            {
+            row.cells.map((cell) => {
+              if (cell.column.id === 'license') {
+                return (
+                  <td {...cell.getCellProps()}>
+                    <img className="license" src={`data:image/jpeg;base64,${cell.value}`} alt="license" height="100px" />
+                  </td>
+                );
+              }
               return (
                 <td {...cell.getCellProps()}>
-                  {// Render the cell contents
-                  cell.render('Cell')}
+                  {
+                  cell.render('Cell')
+                  }
                 </td>
-              )
-            })}
+              );
+            })
+            }
           </tr>
-        )
-      })}
-    </tbody>
-  </table>
+        );
+      })
+      }
+      </tbody>
+    </table>
   );
 }
 
-export default Patients;
+Patients.propTypes = {
+  columns: PropTypes.shape({}).isRequired,
+  data: PropTypes.string.isRequired,
+};
 
+export default Patients;

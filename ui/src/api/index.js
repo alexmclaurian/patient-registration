@@ -1,15 +1,21 @@
 import axios from 'axios';
 
 const url = 'http://localhost:8000/patients';
-// const getUrl = 'http://localhost:8000/patientList';
 
+export const createPatient = (patient) => {
+  const formData = new FormData();
 
-export const createPatient = (patient) => axios.post(url, patient);
+  Object.keys(patient).forEach((key) => {
+    if (key === 'license') {
+      formData.append(key, patient[key][0]);
+    } else {
+      formData.append(key, patient[key]);
+    }
+  });
+  const patientCopy = { ...patient };
+  [patientCopy.license] = patient.license;
+  return axios.post(url, formData);
+};
 
-export const getPatients = () => 
-    axios.get(url)
-    .then((o) => {
-        return o
-    })
-    .catch((e) => {
-    });
+export const getPatients = () => axios.get(url)
+  .then((patients) => patients);
