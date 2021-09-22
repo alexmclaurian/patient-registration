@@ -97,15 +97,15 @@ function Registration() {
               name="license"
               control={control}
               rules={{ required: true }}
-              render={({ field: { onChange } }) => {
+              render={({ field: { onChange } }) => (
                 <input
                   type="file"
                   placeholder="Drivers License"
                   onChange={(e) => {
                     onChange(e.target.files);
                   }}
-                />;
-              }}
+                />
+              )}
             />
           </section>
         </div>
