@@ -15,8 +15,6 @@ function Patients({ columns, data }) {
     rows,
     prepareRow,
   } = tableInstance;
-  console.log(columns);
-  console.log(data);
   return (
     <table {...getTableProps()}>
       <thead>
