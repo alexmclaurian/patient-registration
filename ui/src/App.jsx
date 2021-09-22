@@ -24,7 +24,7 @@ function App() {
   const columns = useMemo(
     () => [
       {
-        Header: 'Patient',
+        Header: 'Patients',
         columns: [
           {
             Header: 'Name',

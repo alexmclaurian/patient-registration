@@ -15,7 +15,8 @@ function Patients({ columns, data }) {
     rows,
     prepareRow,
   } = tableInstance;
-
+  console.log(columns);
+  console.log(data);
   return (
     <table {...getTableProps()}>
       <thead>
@@ -69,8 +70,22 @@ function Patients({ columns, data }) {
 }
 
 Patients.propTypes = {
-  columns: PropTypes.shape({}).isRequired,
-  data: PropTypes.string.isRequired,
+  columns: PropTypes.arrayOf(PropTypes.shape({
+    Header: PropTypes.string,
+    columns: PropTypes.arrayOf(PropTypes.shape({
+      Header: PropTypes.string,
+      accessor: PropTypes.string,
+    })),
+  })).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    address: PropTypes.string,
+    apptTime: PropTypes.string,
+    dob: PropTypes.string,
+    email: PropTypes.string,
+    license: PropTypes.string,
+    name: PropTypes.string,
+    phone: PropTypes.string,
+  })).isRequired,
 };
 
 export default Patients;

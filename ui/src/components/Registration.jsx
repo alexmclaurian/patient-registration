@@ -126,7 +126,9 @@ function Registration() {
             />
           </section>
         </div>
-        <input type="submit" />
+        <div className="container">
+          <input type="submit" />
+        </div>
       </form>
     );
   }
